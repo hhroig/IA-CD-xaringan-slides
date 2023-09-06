@@ -1,0 +1,3234 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Programación en R</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Harold A. Hernández-Roig" />
+    <script src="libs/header-attrs-2.23/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/metropolis.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/metropolis-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="test.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Programación en R
+]
+.subtitle[
+## Inteligencia Artificial &amp; Ciencia de Datos
+]
+.author[
+### Harold A. Hernández-Roig
+]
+.date[
+### 8-9 / 9 / 2023
+]
+
+---
+
+# Outline
+
+.pull-left[ .center-left[
+## 1. *Hello wo**R**ld*
+## 2. *Data wrangling*
+## 3. Programación en **R**
+## 4. Comunicar
+]]
+
+--
+
+.pull-right[ .center-right[
+&lt;img src="my_images/data-science.png" width="100%" style="display: block; margin: auto;" /&gt;
+.center[
+Tomado de [r4ds](https://r4ds.had.co.nz/index.html). 
+]
+]]
+
+???
+* Tidying your data: storing it in a consistent form that matches the semantics of the dataset with the way it is stored
+ + When your data is tidy, each column is a variable, and each row is an observation
+* Wrangling =  Tidying + Transforming: getting your data in a form that’s natural to work with often feels like a fight!
+* En estas 2 sesiones nos saltaremos la parte de Modelar, porque ese es justamente el objetivo de todo el curso!
+* It doesn’t matter how well your models and visualisation have led you to understand the data unless you can also communicate your results to others.
+
+---
+class: inverse, center, middle
+
+# 1. *Hello wo**R**ld*
+
+---
+# 1. Hello woRld
+
+
+&lt;img src="my_images/cover.png" width="30%" style="display: block; margin: auto;" /&gt;
+.center[
+r4ds **gratis** en: &lt;https://r4ds.had.co.nz/index.html&gt;.
+]
+
+
+---
+
+# 1. Hello woRld
+
+### Bibliografía recomendada
+
+Wickham, Hadley, and Garrett Grolemund. 2017. R for Data Science: Import, Tidy, Transform, Visualize, and Model Data. 1st ed. O’Reilly Media. (Versión online libre: [r4ds](https://r4ds.had.co.nz/index.html)).
+
+Chang, Winston. 2012. R Graphics Cookbook: Practical Recipes for Visualizing Data. O'Reilly Media. (Versión parcial online libre: &lt;http://www.cookbook-r.com/Graphs/&gt;).
+
+Wickham, H. 2015. Advanced R. Chapman &amp; Hall. (Versión online libre: &lt;http://adv-r.had.co.nz/&gt;)
+
+Holtz, Yan. 2018. The R Graph Gallery. Recurso online: &lt;https://www.r-graph-gallery.com/index.html&gt;
+
+---
+# 1. Hello woRld
+
+### Necesitaremos:
+* **R** (descargar en [CRAN](https://cloud.r-project.org/))
+* RStudio (descargar [aquí](https://rstudio.com/products/rstudio/download/))
+* Paquetes (fundamentalmente `tidyverse`, ver [aquí](https://www.tidyverse.org/))
+ + Instalar: `install.packages("tidyverse")`
+ + Cargar: `library(tidyverse)`
+
+
+--
+### Recursos:
+
+* *RStudio Cloud* (versión libre limitada): &lt;https://rstudio.com/products/cloud/&gt;
+
+--
+* *Tips &amp; Shortcuts*: &lt;https://appsilon.com/rstudio-shortcuts-and-tips/&gt;
+
+--
+* *Themes* (muy *geek*): &lt;https://www.garrickadenbuie.com/project/rsthemes/&gt;
+
+
+???
+
+* Entramos en CRAN
+* Entramos en el sitio de Rstudio
+* Entramos en el sitio de tidyverse
+* Pasamos a abrir R y luego RStudio para ver las facilidades de este último
+* Estudiamos los diferentes paneles de RStudio
+
+---
+
+# 1. Hello woRld
+
+### **R** como calculadora:
+
+
+```r
+2 + 2
+```
+
+```
+## [1] 4
+```
+
+```r
+sin(pi/2)
+```
+
+```
+## [1] 1
+```
+
+--
+
+### Crear un objeto nuevo (*asignamos* con " &lt;- "):
+
+
+```r
+x &lt;- 'Hello world!'
+class(x)
+```
+
+```
+## [1] "character"
+```
+
+```r
+x
+```
+
+```
+## [1] "Hello world!"
+```
+
+---
+
+# 1. Hello woRld
+
+&lt;img src="my_images/assignment.jpg" width="60%" style="display: block; margin: auto;" /&gt;
+
+---
+# 1. Hello woRld
+
+### Funciones propias (*built-in*):
+
+
+```r
+(y &lt;- seq(from = 1, to = 10, length.out = 8))
+```
+
+```
+## [1]  1.000000  2.285714  3.571429  4.857143  6.142857  7.428571  8.714286
+## [8] 10.000000
+```
+
+```r
+y[2]
+```
+
+```
+## [1] 2.285714
+```
+
+```r
+y[-2]
+```
+
+```
+## [1]  1.000000  3.571429  4.857143  6.142857  7.428571  8.714286 10.000000
+```
+
+```r
+y[1:3]
+```
+
+```
+## [1] 1.000000 2.285714 3.571429
+```
+
+???
+* La única forma de aprenderse las *built-in functions* es programando!
+* Se pueden consultar en la Ayuda de RStudio
+* Preguntando a Google
+* O usando las *Cheatsheets* de RStudio! &lt;https://rstudio.com/resources/cheatsheets/&gt;
+
+---
+# 1. Hello woRld
+
+### Ya estamos listos para empezar a programar :)
+
+* Trabajaremos en un *script* de **R**, no en la *Consola*
+* Además lo haremos de forma segura y organizada creando un **RStudio Project**:
+ + Ir a *File &gt; New Project...*
+ + Podemos crear un nuevo directorio donde guardar nuestros scripts, figuras, datos, etc.;
+ + Por ejemplo, en el Escritorio creamos el proyecto "*intro_R*";
+ + Siempre que trabajemos en este proyecto, "*intro_R*" será nuestro *Working Directory*
+ + Ahora, creamos un nuevo script "*plots_mpg.R*" y a programar!
+
+
+--
+
+#### Pasamos al mini-**Notebook de Visualización**
+
+
+---
+# 1. Hello woRld
+
+### Transformaciones con el paquete `dplyr`:
+
+* Filtrar observaciones (filas) con `filter()`,
+* Reordenar observaciones (filas) con `arrange()`,
+* Seleccionar variables (columnas) con `select()`,
+* Crear nuevas variables (columnas) aplicando transformaciones (funciones) a las ya existentes con `mutate()`,
+* Resumir la información de muchos valores con `summarise()`,
+* ... puede ser usado con `group_by()` que agrupa las observaciones de acuerdo a cierta variable categórica.
+
+---
+# 1. Hello woRld
+
+### Tipos de variables:
+
+--
+
+* `int`: enteros (*integers*)
+* `dbl`: números reales o en doble precisión (*doubles*)
+* `chr`: vectores o cadenas de caracteres (*strings*)
+* `lgl`: vectores lógicos o "booleanos" (*boolean*) que solo contienen `TRUE` o `FALSE` 
+* `fctr`: categóricas o "factores" con niveles fijos (*factors*)
+* `date`: fechas (*dates*) 
+
+---
+# 1. Hello woRld
+
+### Comparaciones:
+
+--
+
+* `x &lt; y`: ¿es `x` menor que `y`?
+* `x &gt; y`: ¿es `x` mayor que `y`?
+* `x &lt;= y` ("&lt;="): ¿es `x` menor o igual que `y`?
+* `x &gt;= y` ("&gt;="): ¿es `x` mayor o igual que `y`?
+* `x == y` ("=="): ¿es `x` igual a `y`?
+* `x != y` ("!="): ¿es `x` distinto de `y`?
+
+
+Estas operaciones se hacen elemento a elemento si `x` e `y` son vectores. Otra muy útil:
+
+* `x %in% y`: ¿qué elementos de `x` están en `y`?
+
+
+```r
+c(1, 2, 3) %in% c(2, 4, 6, 8)
+```
+
+```
+## [1] FALSE  TRUE FALSE
+```
+
+
+---
+# 1. Hello woRld
+
+### Comparaciones:
+
+--
+
+
+```r
+x &lt;- c(1, 2, 3)
+y &lt;- c(2, 1, 3)
+x == y
+```
+
+```
+## [1] FALSE FALSE  TRUE
+```
+
+```r
+x &lt;= y
+```
+
+```
+## [1]  TRUE FALSE  TRUE
+```
+
+```r
+sqrt(2)^2 == 2
+```
+
+```
+## [1] FALSE
+```
+
+```r
+dplyr::near(sqrt(2)^2, 2)
+```
+
+```
+## [1] TRUE
+```
+
+---
+# 1. Hello woRld
+
+### Operadores lógicos (*Boolean operators*):
+
+--
+
+&lt;img src="my_images/transform-logical.png" width="70%" style="display: block; margin: auto;" /&gt;
+.center[
+Tomado de [r4ds](https://r4ds.had.co.nz/index.html). 
+]
+
+---
+# 1. Hello woRld
+
+### Operadores lógicos (*Boolean operators*):
+
+--
+
+* Leyes de *De Morgan* ([Wiki](https://es.wikipedia.org/wiki/Leyes_de_De_Morgan)):
+
+--
+
+  + `!(x &amp; y)` es lo mismo que `!x | !y`
+--
+
+  + `!(x | y)` es lo mismo que `!x &amp; !y`
+
+---
+# 1. Hello woRld
+
+### Datos perdidos (*Missing values*): 
+
+* **R** los codifica como `NA` (*`N`ot `A`vailabe*);
+--
+
+* Las operaciones con ellos pueden resultar algo confusas;
+
+
+```r
+NA &gt; 5
+```
+
+```
+## [1] NA
+```
+
+```r
+10 == NA
+```
+
+```
+## [1] NA
+```
+
+```r
+NA + 10
+```
+
+```
+## [1] NA
+```
+
+```r
+NA / 2
+```
+
+```
+## [1] NA
+```
+
+---
+# 1. Hello woRld
+
+### Datos perdidos (*Missing values*): 
+
+* Las operaciones con ellos pueden resultar algo confusas;
+
+
+```r
+NA == NA
+```
+
+```
+## [1] NA
+```
+
+```r
+# ¿cuánto dinero tendré a los 50?
+x &lt;- NA
+# ¿cuánto dinero tendré a los 55?
+y &lt;- NA
+# ¿tendré la misma cantidad de dinero a los 50 y a los 55?
+x == y
+```
+
+```
+## [1] NA
+```
+
+```r
+# ¡No lo sé!
+```
+---
+# 1. Hello woRld
+
+### Datos perdidos (*Missing values*): 
+
+* Hay que tener cuidado al aplicar funciones a datos con `NA`;
+
+
+```r
+x &lt;- c(NA, 1:4, NA, 6)
+x
+```
+
+```
+## [1] NA  1  2  3  4 NA  6
+```
+
+```r
+mean(x)
+```
+
+```
+## [1] NA
+```
+
+```r
+sum(x)
+```
+
+```
+## [1] NA
+```
+
+---
+# 1. Hello woRld
+
+### Datos perdidos (*Missing values*): 
+
+* Usando `is.na()`:
+
+
+```r
+x
+```
+
+```
+## [1] NA  1  2  3  4 NA  6
+```
+
+```r
+sum(is.na(x))
+```
+
+```
+## [1] 2
+```
+
+```r
+mean(x[!is.na(x)])
+```
+
+```
+## [1] 3.2
+```
+
+```r
+mean(x, na.rm = T)
+```
+
+```
+## [1] 3.2
+```
+
+---
+# 1. Hello woRld
+
+### Funciones útiles (crear)
+
+--
+
+* Operaciones aritméticas: `+`, `-`, `^`, `*`, `/`, todas vectorizadas;
+
+```r
+x &lt;- 1:3
+(y &lt;- x^2)
+```
+
+```
+## [1] 1 4 9
+```
+
+```r
+y/x
+```
+
+```
+## [1] 1 2 3
+```
+
+```r
+y &lt;- c(y, 10)
+y/x
+```
+
+```
+## Warning in y/x: longer object length is not a multiple of shorter object length
+```
+
+```
+## [1]  1  2  3 10
+```
+
+
+---
+# 1. Hello woRld
+
+### Funciones útiles (crear)
+
+--
+
+* Aritmética modular: `%/%` (división entera) and `%%` (resto de la división);
+
+
+```r
+x &lt;- 5
+y &lt;- 2
+x %/% y
+```
+
+```
+## [1] 2
+```
+
+```r
+x %% y
+```
+
+```
+## [1] 1
+```
+
+```r
+x == y * (x %/% y) + (x %% y)
+```
+
+```
+## [1] TRUE
+```
+--
+
+* Logaritmos: `log()`, `log2()`, `log10()`.
+
+---
+# 1. Hello woRld
+
+### Funciones útiles (crear)
+
+--
+
+* *Lags*: `lag()` y `lead()`... ¡no olvides cargar `dplyr`!
+
+
+```r
+z &lt;- 1:10
+lag(z)
+```
+
+```
+##  [1] NA  1  2  3  4  5  6  7  8  9
+```
+
+```r
+lead(z)
+```
+
+```
+##  [1]  2  3  4  5  6  7  8  9 10 NA
+```
+
+```r
+z - lag(z)
+```
+
+```
+##  [1] NA  1  1  1  1  1  1  1  1  1
+```
+---
+# 1. Hello woRld
+
+### Funciones útiles (crear)
+
+--
+
+* Cantidades acumuladas y agregados móviles: **R** base incluye: `cumsum()`, `cumprod()`, `cummin()`, `cummax()`; y `dplyr` también tiene `cummean()` para hacer una media acumulativa;
+
+
+```r
+z
+```
+
+```
+##  [1]  1  2  3  4  5  6  7  8  9 10
+```
+
+```r
+cumsum(z)
+```
+
+```
+##  [1]  1  3  6 10 15 21 28 36 45 55
+```
+
+```r
+cumprod(z)
+```
+
+```
+##  [1]       1       2       6      24     120     720    5040   40320  362880
+## [10] 3628800
+```
+
+```r
+cummean(z)
+```
+
+```
+##  [1] 1.0 1.5 2.0 2.5 3.0 3.5 4.0 4.5 5.0 5.5
+```
+
+---
+# 1. Hello woRld
+
+### Funciones útiles (resumir)
+
+--
+
+* Localización: `mean()` y `median()`, esta última más robusta;
+
+--
+
+* Dispersión: [desviación estándar](https://es.wikipedia.org/wiki/Desviaci%C3%B3n_t%C3%ADpica) `sd()`, [rango intercuartílico](https://es.wikipedia.org/wiki/Rango_intercuart%C3%ADlico) `IQR()`, [desviación media](https://es.wikipedia.org/wiki/Desviaci%C3%B3n_media) `mad()`. 
+
+--
+
+* Medidas de rango: `min()`, `quantile( ... , p)`, `max()`.
+
+---
+# 1. Hello woRld
+
+### Funciones útiles (resumir)
+
+--
+
+* Medidas de posición: `first(x)`, `nth()`, `last()`;
+
+
+```r
+x &lt;- c(5, 3, 6, 2)
+first(x) == x[1]
+```
+
+```
+## [1] TRUE
+```
+
+```r
+nth(x, 2) == x[2]
+```
+
+```
+## [1] TRUE
+```
+
+```r
+last(x) == x[length(x)]
+```
+
+```
+## [1] TRUE
+```
+
+
+---
+# 1. Hello woRld
+
+### Funciones útiles (resumir)
+
+--
+
+* Contar:
+
+
+```r
+x &lt;- c(5, 3, 6, 2, 0, -5, 3)
+unique(x)
+```
+
+```
+## [1]  5  3  6  2  0 -5
+```
+
+```r
+length(unique(x)) # == dplyr::n_distinct(x)
+```
+
+```
+## [1] 6
+```
+
+```r
+sum(x &gt; 2)
+```
+
+```
+## [1] 4
+```
+
+```r
+mean(x &gt; 0)
+```
+
+```
+## [1] 0.7142857
+```
+
+---
+# 1. Hello woRld
+
+### Pipes!
+
+.pull-left[ .center-left[
+* Permiten reescribir operaciones que se leen:
+ + de izquierda a derecha,
+ + de arriba a abajo.
+* Paquete [`magritrr`](https://cran.r-project.org/web/packages/magrittr/vignettes/magrittr.html).
+* Es uno de los ingredientes claves de [`tidyverse`](https://magrittr.tidyverse.org/) y se carga con `dplyr` directamente.
+* Excepción: uso limitado con `ggplot` (y aún [`ggvis`](https://ggvis.rstudio.com/) está verde).
+]]
+
+.pull-right[ .center-right[
+&lt;img src="my_images/logo-pipe.png" width="30%" style="display: block; margin: auto;" /&gt;
+]]
+
+---
+# 1. Hello woRld
+
+### Pipes!
+
+.pull-left[ .center-left[
+
+```r
+piped &lt;- 
+  x %&gt;%
+  f(y) %&gt;%
+  g(z)
+
+not_piped &lt;-  
+  g(f(x, y), z)
+```
+]]
+
+.pull-right[ .center-right[
+&lt;img src="my_images/logo-pipe.png" width="30%" style="display: block; margin: auto;" /&gt;
+]]
+
+---
+# 1. Hello woRld
+
+### Pipes!
+
+.pull-left[ .center-left[
+
+```r
+piped &lt;- 
+  x %&gt;%
+  f(y) %&gt;%
+  g(z)
+
+not_piped &lt;-  
+  g(f(x, y), z)
+```
+#### Pasamos al **Notebook Transformaciones de Datos**
+]]
+
+.pull-right[ .center-right[
+&lt;img src="my_images/logo-pipe.png" width="30%" style="display: block; margin: auto;" /&gt;
+]]
+
+
+
+
+---
+# 1. Hello woRld
+
+### Análisis Exploratorio de Datos
+
+* Exploración sistemática de los datos mediante transformaciones y la visualización.
+
+--
+* Te permite generar y responder cuestiones sobre tus datos.
+
+--
+* No es un proceso con reglas estrictas.
+
+--
+* Una parte importante del AED es la limpieza de tus datos (outlieres, errores de formato, `NA`s, etc.).
+
+
+
+---
+class: inverse, center, middle
+
+# 2. *Data wrangling*
+
+---
+
+# 2. *Data wrangling*
+
+&lt;img src="my_images/wrangler_meme_3.jpg" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# 2. *Data wrangling*
+
+## 2.1 Tipos de datos en **R**
+## 2.2 Importar datos externos
+## 2.3 Datos ordenados (*tidy*)
+## 2.4 Datos relacionales (*relational*)
+
+---
+
+# 2.1 Tipos de datos en **R**
+
+### Tibbles:
+
+--
+* Los *tibbles* son como los `data.frame` tradicionales de **R**,
+
+--
+* Nos hacen la vida "más fácil"...
+
+--
+
+* Para ver la diferencia, intenta esto:
+
+
+```r
+iris
+as_tibble(iris)
+```
+
+--
+
+* Para crear tibbles:
+
+
+```r
+tibble(
+  x = 1:5, 
+  y = 1, 
+  z = x ^ 2 + y
+)
+```
+
+--
+
+* ¿Puedes crear un `data.frame` de esta misma forma?
+
+
+---
+
+# 2.1 Tipos de datos en **R**
+
+### Tibbles:
+
+* Pueden tener nombres de columna *non-syntactic*:
+
+
+```r
+tibble(
+  `:)` = "smile", 
+  ` ` = "space",
+  `2000` = "number"
+)
+```
+
+```
+## # A tibble: 1 × 3
+##   `:)`  ` `   `2000`
+##   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; 
+## 1 smile space number
+```
+
+---
+
+# 2.1 Tipos de datos en **R**
+
+### Tibbles:
+
+* Transposed tibbles (pequeñas cantidades de datos) :
+
+
+```r
+tribble(
+  ~x, ~y, ~z,
+  #--|--|----
+  "a", 2, 3.6,
+  "b", 1, 8.5
+)
+```
+
+```
+## # A tibble: 2 × 3
+##   x         y     z
+##   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 a         2   3.6
+## 2 b         1   8.5
+```
+
+
+---
+
+# 2.1 Tipos de datos en **R**
+
+### Tibbles:
+
+* Print por defecto de 10 observaciones y la columnas que quepan:
+
+
+```r
+nycflights13::flights %&gt;% 
+  print()
+```
+
+* Print personalizado:
+
+
+```r
+nycflights13::flights %&gt;% 
+  print(n = 15, width = Inf)
+```
+
+--
+
+* Siempre tendremos la opción `View()`...
+
+---
+
+# 2.1 Tipos de datos en **R**
+
+### Tibbles:
+
+* Subsetting:
+
+
+```r
+df &lt;- tibble(x = runif(5),  y = rnorm(5)) 
+
+# Usando el nombre de la variable:
+df$x
+```
+
+```
+## [1] 0.9900314 0.3121956 0.3942127 0.2627639 0.9097080
+```
+
+```r
+df[["x"]]
+```
+
+```
+## [1] 0.9900314 0.3121956 0.3942127 0.2627639 0.9097080
+```
+
+```r
+# Usando la posición de la variable:
+df[[1]]
+```
+
+```
+## [1] 0.9900314 0.3121956 0.3942127 0.2627639 0.9097080
+```
+
+---
+
+# 2.1 Tipos de datos en **R**
+
+### Tibbles:
+
+* Usando *pipes*:
+
+
+```r
+df %&gt;% .$x
+```
+
+```
+## [1] 0.9900314 0.3121956 0.3942127 0.2627639 0.9097080
+```
+
+```r
+df %&gt;% .[["x"]]
+```
+
+```
+## [1] 0.9900314 0.3121956 0.3942127 0.2627639 0.9097080
+```
+
+--
+
+* Si algún método no te funciona con los tibbles:
+
+
+```r
+tb_2_df &lt;- as.data.frame(df)
+
+class(tb_2_df)
+```
+
+```
+## [1] "data.frame"
+```
+
+---
+
+# 2.1 Tipos de datos en **R**
+
+### Vectores:
+
+* Son la estructura de datos de R base,
+
+--
+* Los paquetes que hemos visto (ggplot2, dplyr, tidyr, ...) funcionan con tibbles,
+
+--
+* En la práctica trabajamos más con vectores.
+
+
+---
+
+# 2.1 Tipos de datos en **R**
+
+### Vectores:
+
+#### Atomic
+
+--
+
+  * logical
+  * integer (numeric)
+  * double (numeric)
+  * character
+  * complex
+  * raw
+
+--
+
+#### Lists
+
+--
+
+  * También llamados *recursive vectors* porque pueden contener otras listas.
+
+---
+
+# 2.1 Tipos de datos en **R**
+
+### Atomic vectors 
+
+#### Logical
+
+* Solo toman 3 valores: `TRUE`, `FALSE` o `NA`.
+
+--
+
+#### Complex
+
+
+```r
+typeof(1 + 2i)
+```
+
+```
+## [1] "complex"
+```
+
+```r
+sqrt(-1+0i)
+```
+
+```
+## [1] 0+1i
+```
+
+```r
+sqrt(as.complex(-1)) 
+```
+
+```
+## [1] 0+1i
+```
+
+---
+
+# 2.1 Tipos de datos en **R**
+
+### Atomic vectors 
+
+#### Numeric
+
+--
+
+* Los *integers* solo toman valores enteros o `NA`.
+
+--
+
+
+```r
+typeof(1)
+```
+
+```
+## [1] "double"
+```
+
+```r
+typeof(1L)
+```
+
+```
+## [1] "integer"
+```
+
+--
+
+* Los *double* (doble precisión) toman valores reales, incluyendo: `NA`, `NaN`, `Inf` y `-Inf`. 
+
+--
+
+
+```r
+c(-1, 0, 1) / 0
+```
+
+```
+## [1] -Inf  NaN  Inf
+```
+
+---
+
+# 2.1 Tipos de datos en **R**
+
+### Atomic vectors 
+
+#### Character
+
+* Vectores de *strings* (cadenas de caracteres).
+
+--
+
+
+```r
+string1 &lt;- "Esto es un string"
+string2 &lt;- 'Si queremos incluir una "cita" dentro de un string'
+```
+
+#### Raw
+
+--
+
+* Almacena bytes... cada número hexadecimal representa un byte de información:
+
+--
+
+
+```r
+(y &lt;- charToRaw(string1))
+```
+
+```
+##  [1] 45 73 74 6f 20 65 73 20 75 6e 20 73 74 72 69 6e 67
+```
+
+```r
+typeof(y)
+```
+
+```
+## [1] "raw"
+```
+
+
+---
+
+# 2.1 Tipos de datos en **R**
+
+### Lists
+
+
+```r
+x &lt;- list(1, 2, 3)
+x
+```
+
+```
+## [[1]]
+## [1] 1
+## 
+## [[2]]
+## [1] 2
+## 
+## [[3]]
+## [1] 3
+```
+
+```r
+# estructura de la lista:
+str(x)
+```
+
+```
+## List of 3
+##  $ : num 1
+##  $ : num 2
+##  $ : num 3
+```
+
+---
+
+# 2.1 Tipos de datos en **R**
+
+### Lists
+
+
+```r
+# podemos añadir nombre a los elementos:
+x_named &lt;- list(a = 1, b = 2, c = 3)
+str(x_named)
+```
+
+```
+## List of 3
+##  $ a: num 1
+##  $ b: num 2
+##  $ c: num 3
+```
+
+```r
+# pueden contener diferentes tipos de variables:
+y &lt;- list("a", 1L, 1.5, TRUE)
+str(y)
+```
+
+```
+## List of 4
+##  $ : chr "a"
+##  $ : int 1
+##  $ : num 1.5
+##  $ : logi TRUE
+```
+
+---
+
+# 2.1 Tipos de datos en **R**
+
+### Lists
+
+
+```r
+a &lt;- list(a = 1:3, b = "a string", c = pi, d = list(-1, -5))
+```
+
+--
+
+&lt;img src="my_images/lists-subsetting.png" width="35%" style="display: block; margin: auto;" /&gt;
+.center[
+Tomado de [r4ds](https://r4ds.had.co.nz/index.html). 
+]
+
+
+---
+
+# 2.1 Tipos de datos en **R**
+
+### Lists
+
+* `[` extrae una sub-lista. El resultado es también una lista.
+
+--
+
+* `[[` extrae un elemento de una lista. Elimina un nivel de jerarquía de la lista.
+
+--
+
+* `$` es un atajo para extraer elementos con nombre de una lista. Funciona igual que `[[`, sin tener que usar las comillas: `[["var_name"]]`.
+
+
+---
+
+# 2.1 Tipos de datos en **R**
+
+### Lists
+
+* Pimentero `x` lleno de paquetes de pimienta:
+
+&lt;img src="my_images/pepper.jpg" width="20%" style="display: block; margin: auto;" /&gt;
+.center[
+Tomado de [r4ds](https://r4ds.had.co.nz/index.html). 
+]
+
+---
+
+# 2.1 Tipos de datos en **R**
+
+### Lists
+
+* `x[1]` es otro pimentero con un solo paquete de pimienta:
+
+&lt;img src="my_images/pepper-1.jpg" width="20%" style="display: block; margin: auto;" /&gt;
+.center[
+Tomado de [r4ds](https://r4ds.had.co.nz/index.html). 
+]
+
+---
+
+# 2.1 Tipos de datos en **R**
+
+### Lists
+
+* `x[[1]]` es el primero de los paquetes de pimienta:
+
+&lt;img src="my_images/pepper-2.jpg" width="30%" style="display: block; margin: auto;" /&gt;
+.center[
+Tomado de [r4ds](https://r4ds.had.co.nz/index.html). 
+]
+
+
+---
+
+# 2.1 Tipos de datos en **R**
+
+### Lists
+
+* Finalmente, `x[[1]][1]` es la pimienta del primer paquete:
+
+&lt;img src="my_images/pepper-3.jpg" width="30%" style="display: block; margin: auto;" /&gt;
+.center[
+Tomado de [r4ds](https://r4ds.had.co.nz/index.html). 
+]
+
+
+---
+
+# 2.1 Tipos de datos en **R**
+
+### Atributos
+
+* Almacenan cualquier metadata que queramos añadir a los vectores. 
+
+
+```r
+x &lt;- 1:10
+attr(x, "greeting")
+```
+
+```
+## NULL
+```
+
+```r
+attr(x, "greeting") &lt;- "Hi!"
+attr(x, "farewell") &lt;- "Bye!"
+attributes(x)
+```
+
+```
+## $greeting
+## [1] "Hi!"
+## 
+## $farewell
+## [1] "Bye!"
+```
+
+---
+
+# 2.1 Tipos de datos en **R**
+
+### Vectores con Atributos Adicionales:
+
+#### Tibbles
+
+--
+
+
+```r
+tb &lt;- tibble(x = 1:5, y = 5:1)
+typeof(tb)
+```
+
+```
+## [1] "list"
+```
+
+```r
+attributes(tb)
+```
+
+```
+## $class
+## [1] "tbl_df"     "tbl"        "data.frame"
+## 
+## $row.names
+## [1] 1 2 3 4 5
+## 
+## $names
+## [1] "x" "y"
+```
+
+
+---
+
+# 2.1 Tipos de datos en **R**
+
+### Vectores con Atributos Adicionales:
+
+#### Factors
+
+--
+
+* Variables categóricas en **R**: solo toman un número conocido de posibles valores:
+
+--
+
+
+```r
+x1 &lt;- c("Dec", "Apr", "Jan", "Mar")
+sort(x1)
+```
+
+```
+## [1] "Apr" "Dec" "Jan" "Mar"
+```
+
+```r
+month_levels &lt;- c("Jan", "Feb", "Mar", "Apr", "May", "Jun", 
+                  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
+y1 &lt;- factor(x1, levels = month_levels)
+sort(y1)
+```
+
+```
+## [1] Jan Mar Apr Dec
+## Levels: Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec
+```
+
+--
+
+* **¡Paquete `forcats`!**
+
+---
+
+# 2.1 Tipos de datos en **R**
+
+### Vectores con Atributos Adicionales:
+
+#### Dates 
+
+--
+
+* Las fechas en **R** son vectores numéricos que cuentan el número de días desde el 1ero de enero de 1970.
+
+--
+
+
+```r
+x &lt;- as.Date("1971-01-01")
+unclass(x)
+```
+
+```
+## [1] 365
+```
+
+```r
+typeof(x)
+```
+
+```
+## [1] "double"
+```
+
+```r
+attributes(x)
+```
+
+```
+## $class
+## [1] "Date"
+```
+
+---
+
+# 2.1 Tipos de datos en **R**
+
+### Vectores con Atributos Adicionales:
+
+#### Date-times 
+
+--
+
+* Date-times son vectores numéricos de clase `POSIXct` que cuentan el número de segundos desde el 1ero de enero de 1970.
+
+--
+
+
+```r
+x &lt;- lubridate::ymd_hm("1970-01-01 01:00")
+typeof(x)
+```
+
+```
+## [1] "double"
+```
+
+```r
+attributes(x)
+```
+
+```
+## $class
+## [1] "POSIXct" "POSIXt" 
+## 
+## $tzone
+## [1] "UTC"
+```
+
+--
+
+* `tzone` solo cambia la forma en que se muestra el resultado.
+
+---
+
+# 2.1 Tipos de datos en **R**
+
+### Vectores con Atributos Adicionales:
+
+#### Date-times de la clase `POSIXlt`:
+
+--
+
+
+```r
+y &lt;- as.POSIXlt(x)
+typeof(y)
+```
+
+```
+## [1] "list"
+```
+
+```r
+attributes(y)
+```
+
+```
+## $names
+## [1] "sec"   "min"   "hour"  "mday"  "mon"   "year"  "wday"  "yday"  "isdst"
+## 
+## $class
+## [1] "POSIXlt" "POSIXt" 
+## 
+## $tzone
+## [1] "UTC"
+```
+
+--
+
+* Son más complicados de trabajar, mejor convertirlos usando `as_date_time()` del **paquete `lubridate`**.
+
+
+---
+
+# 2.2 Importar datos externos
+
+
+### Lo haremos con [`readr`](https://readr.tidyverse.org/reference/read_delim.html):
+
+* `read_csv()`: lee archivos delimitados por comas `,` 
+* `read_csv2()`: ... delimitados por punto y comas `;`
+* `read_tsv()`: ... delimitados por `tab` 
+* `read_delim()`: ... por cualquier delimitador
+* `read_fwf()`: ... por un ancho o espacio fijo
+* `read_table()`: ... columnas separadas por un espacio.
+
+--
+
+### Ventajas sobre `read.csv()`:
+
+* Más rápido
+* Devuelve tibbles
+* No convierten character a factor
+* No lee nombres de fila 
+* Más reproducible
+
+---
+
+# 2.2 Importar datos externos
+
+
+### Lo haremos con `readr`:
+
+* Utiliza `parsers`:
+
+
+```r
+parse_double("1,23", locale = locale(decimal_mark = ","))
+```
+
+```
+## [1] 1.23
+```
+
+```r
+parse_number("$123,456,789")
+```
+
+```
+## [1] 123456789
+```
+
+```r
+parse_date("01/02/15", "%d/%m/%y")
+```
+
+```
+## [1] "2015-02-01"
+```
+
+```r
+parse_date("01/02/15", "%y/%m/%d")
+```
+
+```
+## [1] "2001-02-15"
+```
+
+---
+
+# 2.2 Importar datos externos
+
+
+### Otros para tener a mano:
+
+* `haven`: SPSS, Stata, y SAS.
+
+* [`readxl`](https://readxl.tidyverse.org/): Excel (.xls y .xlsx).
+
+* `DBI` bases de batos (e.g. RMySQL, RSQLite, RPostgreSQL, etc.) puedes ejecutar queries de SQL y devolver un data frame.
+
+--
+
+### Para escribir:    
+
+* `write_csv()` : recordad que en un .csv pierdes la información sobre el tipo de cada variable.
+* `openxlsx::write.xlsx()` y `writexl::write_xlsx()`
+
+--
+
+### Los formatos de **R**:
+
+* *.Rda* o *.RData*: permiten almacenar varios objetos (variables): `save()`, `load()`, `attach()`, etc.
+* *.Rds*: permiten almacenar **un solo** objeto, pero puedes asignarlo. Usamos: `write_rds()` and `read_rds()` que son wrappers de `readRDS()` y `saveRDS()`.
+
+---
+
+# 2.2 Importar datos externos
+
+
+### Ejercicio:
+
+* Vamos a importar datos oficiales sobre el proceso de vacunación
+* Están en el repo COVID19 de Datadista: &lt;https://github.com/datadista&gt;
+
+--
+
+
+```r
+url_vacunas &lt;- "https://raw.githubusercontent.com/datadista/datasets/master/COVID%2019/ccaa_vacunas.csv"
+# Empezamos con el read.csv() de R
+challengeR &lt;- read.csv(url_vacunas)
+# Veamos que pasa con la versión de tidyverse:
+challenge &lt;- read_csv(url_vacunas)
+```
+
+--
+
+1. Mira lo que pasa con los nombres de columnas en ambos casos.
+2. Intenta arreglar los problemas, presta atención a los signos de agrupación.
+3. Salva tus datos "limpios" de la forma que consideres más apropiada.
+
+---
+
+# 2.3 *Tidy data*
+
+### _“Tidy datasets are all alike, but every messy dataset is messy in its own way.”_
+–– Hadley Wickham
+
+--
+
+1. Cada variable debe tener su propia columna.
+2. Cada observación debe tener su propia fila.
+3. Cada valor debe tener su propia celda.
+
+--
+
+&lt;img src="my_images/tidy-1.png" width="70%" style="display: block; margin: auto;" /&gt;
+.center[
+Tomado de [r4ds](https://r4ds.had.co.nz/index.html). 
+]
+
+
+---
+
+# 2.3 *Tidy data*
+
+#### Ventajas:
+
+--
+
+* Es más sencillo asimilar las herramientas que funcionan con datos *tidy*:
+  
+  + Te permite ser consistente
+  
+--
+  
+  + `dplyr`, `ggplot` y el resto de paquetes de `tidyverse`
+
+--
+
+* Permite utilizar la naturaleza vectorial de **R** (recuerda `mutate()` y las funciones para resumir información)
+
+--
+
+#### Pasamos al **Notebook de *Tidy Data* ** para trabajar con los conceptos:
+
+--
+
+* Pivotar
+
+--
+
+  + *Pivot longer*: hacer más largo
+  + *Pivot wider*: hacer más ancho
+
+--
+
+* Separar
+
+--
+
+* Unir
+
+
+
+---
+
+# 2.4 *Relational data*
+
+* ### En la práctica tendremos que trabajar con múltiples fuentes (tablas) de datos
+
+--
+
+* ### A estos los llamaremos *datos relacionados*
+
+--
+
+* ### Definiremos las relaciones entre pares de tablas
+
+--
+
+* ### Y los métodos en tres grupos:
+
+--
+
+  + #### Mutating Joins
+  + #### Filtering Joins
+  + #### Set Operations
+  
+---
+# 2.4 *Relational data*
+
+### *Keys* / Llaves / Claves:
+
+--
+
+* #### La(s) variable(s) en común que usamos para conectar 2 tablas
+
+--
+
+* #### Las **primarias** identifican de forma única a cada observación en su propia tabla
+
+--
+
+* #### Las **externas** identifican de forma única a cada observación en otra tabla
+
+--
+
+* #### Una vez identificadas las llaves primarias es bueno [contar](https://dplyr.tidyverse.org/reference/count.html) si de verdad identifican de forma única a las observaciones:
+
+--
+
+
+```r
+my_tibble %&gt;% 
+  count(the_key) %&gt;% 
+  filter(n &gt; 1)
+#&gt; # A tibble: 0 x 2
+#&gt; # … with 2 variables: the_key &lt;chr&gt;, n &lt;int&gt;
+```
+
+--
+
+* #### Algunas tablas no tienen una llave primaria explícita: ninguna combinación de variables resulta en un identificador único
+
+--
+
+* #### Se pueden construir las llaves/claves **sustitutas** (*surrogate keys*): e.g. usando `mutate()` y `row_number()`.
+
+
+---
+# 2.4 *Relational data*
+
+### Mutating Joins
+
+--
+
+* Combina variables de dos tablas
+
+* Empareja de acuerdo a la variable clave
+
+* Copia de una tabla a la otra
+
+---
+# 2.4 *Relational data*
+
+### Mutating Joins &gt; Inner
+
+--
+
+&lt;img src="my_images/tidyr_animated/inner-join.gif" width="35%" style="display: block; margin: auto;" /&gt;
+.center[
+[tidyexplain](https://www.garrickadenbuie.com/project/tidyexplain/) 
+]
+
+---
+# 2.4 *Relational data*
+
+### Mutating Joins &gt; Outer &gt; Left
+
+--
+
+&lt;img src="my_images/tidyr_animated/left-join.gif" width="35%" style="display: block; margin: auto;" /&gt;
+.center[
+[tidyexplain](https://www.garrickadenbuie.com/project/tidyexplain/) 
+]
+
+---
+# 2.4 *Relational data*
+
+### Mutating Joins &gt; Outer &gt; Right
+
+--
+
+&lt;img src="my_images/tidyr_animated/right-join.gif" width="35%" style="display: block; margin: auto;" /&gt;
+.center[
+[tidyexplain](https://www.garrickadenbuie.com/project/tidyexplain/) 
+]
+
+---
+# 2.4 *Relational data*
+
+### Mutating Joins &gt; Outer &gt; Full
+
+--
+
+&lt;img src="my_images/tidyr_animated/full-join.gif" width="35%" style="display: block; margin: auto;" /&gt;
+.center[
+[tidyexplain](https://www.garrickadenbuie.com/project/tidyexplain/) 
+]
+
+---
+# 2.4 *Relational data*
+
+### Mutating Joins &gt; Outer &gt; Left &amp; Duplicados
+
+--
+
+&lt;img src="my_images/tidyr_animated/left-join-extra.gif" width="35%" style="display: block; margin: auto;" /&gt;
+.center[
+[tidyexplain](https://www.garrickadenbuie.com/project/tidyexplain/) 
+]
+
+
+---
+# 2.4 *Relational data*
+
+### Filtering Joins &gt; Semi
+
+--
+
+&lt;img src="my_images/tidyr_animated/semi-join.gif" width="35%" style="display: block; margin: auto;" /&gt;
+.center[
+[tidyexplain](https://www.garrickadenbuie.com/project/tidyexplain/) 
+]
+
+---
+# 2.4 *Relational data*
+
+### Filtering Joins &gt; Anti
+
+--
+
+&lt;img src="my_images/tidyr_animated/anti-join.gif" width="35%" style="display: block; margin: auto;" /&gt;
+.center[
+[tidyexplain](https://www.garrickadenbuie.com/project/tidyexplain/) 
+]
+
+
+---
+# 2.4 *Relational data*
+
+### Set Operations &gt; Intersect
+
+--
+
+&lt;img src="my_images/tidyr_animated/intersect.gif" width="35%" style="display: block; margin: auto;" /&gt;
+.center[
+[tidyexplain](https://www.garrickadenbuie.com/project/tidyexplain/) 
+]
+
+---
+# 2.4 *Relational data*
+
+### Set Operations &gt; Union X vs. Y
+
+--
+
+&lt;img src="my_images/tidyr_animated/union.gif" width="35%" style="display: block; margin: auto;" /&gt;
+.center[
+[tidyexplain](https://www.garrickadenbuie.com/project/tidyexplain/) 
+]
+
+
+---
+# 2.4 *Relational data*
+
+### Set Operations &gt; Union Y vs. X
+
+--
+
+&lt;img src="my_images/tidyr_animated/union-rev.gif" width="35%" style="display: block; margin: auto;" /&gt;
+.center[
+[tidyexplain](https://www.garrickadenbuie.com/project/tidyexplain/) 
+]
+
+
+---
+# 2.4 *Relational data*
+
+### Set Operations &gt; Union All
+
+--
+
+&lt;img src="my_images/tidyr_animated/union-all.gif" width="35%" style="display: block; margin: auto;" /&gt;
+.center[
+[tidyexplain](https://www.garrickadenbuie.com/project/tidyexplain/) 
+]
+
+---
+# 2.4 *Relational data*
+
+### Set Operations &gt; Set Difference X vs. Y
+
+--
+
+&lt;img src="my_images/tidyr_animated/setdiff.gif" width="35%" style="display: block; margin: auto;" /&gt;
+.center[
+[tidyexplain](https://www.garrickadenbuie.com/project/tidyexplain/) 
+]
+
+---
+# 2.4 *Relational data*
+
+### Set Operations &gt; Set Difference Y vs. X
+
+--
+
+&lt;img src="my_images/tidyr_animated/setdiff-rev.gif" width="35%" style="display: block; margin: auto;" /&gt;
+.center[
+[tidyexplain](https://www.garrickadenbuie.com/project/tidyexplain/) 
+]
+
+
+---
+# 2.4 *Relational data*
+
+--
+
+.center2[
+### Pasamos al **Notebook de *Relational Data* ** 
+]
+
+
+
+---
+class: inverse, center, middle
+
+# 3. Programación en **R**
+
+---
+
+# 3. Programación en **R**
+
+## 3.1 Funciones
+### 3.1.1 Ejecución condicional
+## 3.2 Iteración
+
+---
+
+# 3.1 Funciones
+
+.center2[
+### ¡Siempre que hayas copiado-pegado un mismo bloque de códigos más de 2 veces!
+]
+
+
+---
+
+# 3.1 Funciones
+
+### Funciones vs. Copiar-Pegar
+
+--
+
+* Hacen el código más legible
+
+--
+
+* Si necesitas cambiar algo, solo tienes que actualizar tu función
+
+--
+
+* Reduces la posibilidad de error en alguno de los bloques
+
+
+---
+
+# 3.1 Funciones
+
+### Pasos:
+
+--
+
+1. Escoger un **nombre** adecuado, generalmente un verbo, que no sea muy largo y permita entender qué hace la función (e.g. `plot_vacunas &lt;- ...`)
+
+--
+
+2. Lista de **argumentos** de la función, generalmente sustantivos cortos (e.g. `plot_vacunas &lt;- function(datos, provincia, municipio)`)
+
+--
+
+3. Los códigos van en el **cuerpo** (**_body_**) de la función:
+
+
+```r
+plot_vacunas &lt;- function(datos, provincia, municipio){
+  
+  # Este es
+  # el cuerpo/body
+  # de la función
+  
+}
+```
+
+---
+
+# 3.1 Funciones
+
+### Ejercicio:
+
+Crear una función que calcule la varianza de un vector `x`:
+
+$$ \mathbb{V}(x) = \frac{1}{n-1} \sum_i^n (x_i - \bar x)^2, $$
+donde `\(\bar x = 1/n \sum_i x_i\)` y otra que calcule el [coeficiente de asimetría](https://en.wikipedia.org/wiki/Skewness) (*skewness*):
+
+$$ \mathrm{Skew}(x) = \frac{\frac{1}{n-2}\left(\sum_{i=1}^n(x_i - \bar x)^3\right)}{\mathbb{V}(x)^{3/2}} \text{.}$$
+
+
+---
+
+# 3.1 Funciones &gt; Ejecución Condicional
+
+* ### `if` / `else`
+
+
+```r
+if (condition) {
+  # code executed when condition is TRUE
+} else {
+  # code executed when condition is FALSE
+}
+```
+
+--
+
+* ### `if` / `else if` / `else`
+
+
+```r
+if (this) {
+  # do that
+} else if (that) {
+  # do something else
+} else {
+  # 
+}
+```
+
+---
+
+# 3.1 Funciones &gt; Ejecución Condicional
+
+* ### `switch` como alternativa a los `if` / `else if` / ... / `else`
+
+
+```r
+function(x, y, op) {
+  switch(op,
+    plus = x + y,
+    minus = x - y,
+    times = x * y,
+    divide = x / y,
+    stop("Unknown op!")
+  )
+}
+```
+
+--
+
+* ### Evitar los `if` / `else` de una sola línea, salvo casos muy sencillos:
+
+
+```r
+x &lt;- if (y &lt; 20) "Too low" else "Too high"
+```
+
+--
+
+* ### Otro muy útil (pero lento): `ifelse(test, yes, no)`
+
+---
+
+# 3.1 Funciones &gt; Ejecución Condicional
+
+### Ejercicio
+
+La "alternativa continua" a `switch()` es `cut()`. Utilízala para simplificar:
+
+
+```r
+if (temp &lt;= 0) {
+  "freezing"
+} else if (temp &lt;= 10) {
+  "cold"
+} else if (temp &lt;= 20) {
+  "cool"
+} else if (temp &lt;= 30) {
+  "warm"
+} else {
+  "hot"
+}
+```
+
+???
+
+
+```r
+temp &lt;- seq(-10, 50, by = 5)
+cut(temp, c(-Inf, 0, 10, 20, 30, Inf),
+  right = TRUE,
+  labels = c("freezing", "cold", "cool", "warm", "hot")
+)
+```
+
+---
+
+# 3.1 Funciones &gt; Ejecución Condicional
+
+### "Short-circuiting"
+
+--
+
+* Utiliza `||` (OR) y `&amp;&amp;` (AND) para combinar múltiples expresiones lógicas
+
+--
+
+* Cuando `||` ve el primer `TRUE` retorna `TRUE` sin computar más nada
+
+--
+
+* Cuando `&amp;&amp;` ve el primer `FALSE` retorna `FALSE` sin computar más nada
+
+--
+
+* Nunca usar `|` o `&amp;` en un `if(...)` porque son operaciones vectorizadas (por eso te funcionan con `dplyr::filter(...)`)
+
+--
+
+* Si en tu condición tienes un vector lógico, puedes colapsarlo a un único valor con `any()` o `all()`
+
+--
+
+* También tener cuidado con `==` porque es otra operación vectorizada... una alternativa es `identical()`
+
+???
+
+You can use || (or) and &amp;&amp; (and) to combine multiple logical expressions. These operators are “short-circuiting”: as soon as || sees the first TRUE it returns TRUE without computing anything else. As soon as &amp;&amp; sees the first FALSE it returns FALSE. You should never use | or &amp; in an if statement: these are vectorised operations that apply to multiple values (that’s why you use them in filter()). If you do have a logical vector, you can use any() or all() to collapse it to a single value.
+
+Be careful when testing for equality. == is vectorised, which means that it’s easy to get more than one output. Either check the length is already 1, collapse with all() or any(), or use the non-vectorised identical(). identical() is very strict: it always returns either a single TRUE or a single FALSE, and doesn’t coerce types.
+
+---
+
+# 3.1 Funciones
+
+### Comprobando argumentos:
+
+
+```r
+wt_mean &lt;- function(x, w) {
+  if (length(x) != length(w)) {
+    stop("`x` and `w` must be the same length", call. = FALSE)
+  }
+  sum(w * x) / sum(w)
+}
+```
+
+
+---
+
+# 3.1 Funciones
+
+### Comprobando argumentos con una función genérica ([`stopifnot()`](https://rdrr.io/r/base/stopifnot.html)):
+
+
+```r
+wt_mean &lt;- function(x, w, na.rm = FALSE) {
+  stopifnot(is.logical(na.rm), length(na.rm) == 1)
+  stopifnot(length(x) == length(w))
+  
+  if (na.rm) {
+    miss &lt;- is.na(x) | is.na(w)
+    x &lt;- x[!miss]
+    w &lt;- w[!miss]
+  }
+  sum(w * x) / sum(w)
+}
+
+# Comprueba esto:
+wt_mean(1:6, 6:1, na.rm = "foo")
+```
+
+---
+
+# 3.1 Funciones
+
+### Dot-dot-dot (`...`)
+
+
+```r
+hyphen &lt;- function(...) stringr::str_c(..., collapse = " - ")
+hyphen(LETTERS[c(18, 13, 15, 12, 1)])
+```
+
+```
+## [1] "R - M - O - L - A"
+```
+
+```r
+rule &lt;- function(..., pad = "-") {
+  title &lt;- paste0(...)
+  width &lt;- getOption("width") - nchar(title) - 5
+  cat(title, " ", stringr::str_dup(pad, width), "\n", sep = "")
+}
+rule("Escribo lo que quiera y luego una línea hasta el final")
+```
+
+```
+## Escribo lo que quiera y luego una línea hasta el final ---------------------
+```
+
+```r
+rule("Important output")
+```
+
+```
+## Important output -----------------------------------------------------------
+```
+---
+
+# 3.1 Funciones
+
+### *Return*
+
+* Las funciones devuelven el último valor calculado
+
+--
+
+* Pero es una buena práctica definirlos de forma explícita con `return()`
+
+--
+
+
+```r
+f &lt;- function() {
+  if (!x) {
+    return(something_short)
+  }
+
+  # Do 
+  # something
+  # that
+  # takes
+  # many
+  # lines
+  # to
+  # express
+}
+```
+
+---
+
+# 3.1 Funciones
+
+### *Environment*
+
+--
+
+* **R** usa *lexical scoping* para encontrar el valor asociado a cada nombre
+
+--
+
+* Esto te permite hacer (aunque no es recomendable):
+
+
+```r
+f &lt;- function(x) {
+  x + y
+} 
+
+y &lt;- 100 # sólo en el environment, no en el cuerpo de "f"
+
+f(10)
+```
+
+```
+## [1] 110
+```
+
+
+---
+
+# 3.3 Iteración
+
+## `for` loops
+
+
+```r
+df &lt;- tibble(
+  a = rnorm(10),
+  b = rnorm(10),
+  c = rnorm(10),
+  d = rnorm(10)
+)
+```
+
+--
+
+... si queremos la mediana de cada columna:
+
+--
+
+
+```r
+median(df$a)
+median(df$b)
+median(df$c)
+median(df$d)
+```
+
+---
+
+# 3.3 Iteración
+
+## `for` loops
+
+--
+
+
+```r
+output &lt;- vector("double", ncol(df))  # 1. output
+for (i in seq_along(df)) {            # 2. sequence
+  output[[i]] &lt;- median(df[[i]])      # 3. body
+}
+output
+```
+
+```
+## [1] 0.02197509 0.01554522 0.34002339 0.37497688
+```
+
+--
+
+* El **output**: lo eficiente es fijar el tamaño, aunque podemos concatenar resultados con `c()`. Mirar la opción: [`vector()`](https://rdrr.io/r/base/vector.html)
+
+--
+
+* La **secuencia**: `i in seq_along(df)` o `i in 1:ncol(df)`, usando los índices es lo más común. Pero también puedes iterar sobre los elementos (`i in df`) o sobre los nombres (`i in names(df)`), cambiando la forma en que se hace la asignación en el cuerpo del ciclo.
+
+--
+
+* El **cuerpo** (**body**): `output[[i]] &lt;- median(df[[i]])`
+
+---
+
+# 3.3 Iteración
+
+## `for` loops si desconoces el tamaño del *output*
+
+--
+
+
+```r
+means &lt;- c(0, 1, 2)
+out &lt;- vector("list", length(means))
+for (i in seq_along(means)) {
+  n &lt;- sample(100, 1)
+  out[[i]] &lt;- rnorm(n, means[[i]])
+}
+str(out)
+```
+
+```
+## List of 3
+##  $ : num [1:70] -0.407 1.356 1.126 -0.419 -0.458 ...
+##  $ : num [1:13] 2.789 0.375 0.864 1.581 1.015 ...
+##  $ : num [1:13] 2.069 3.067 0.916 1.051 1.902 ...
+```
+
+```r
+str(unlist(out))
+```
+
+```
+##  num [1:96] -0.407 1.356 1.126 -0.419 -0.458 ...
+```
+
+---
+
+# 3.3 Iteración
+
+## Si lo desconocido es el tamaño de la *secuencia*
+
+--
+
+
+```r
+while (condition) {
+  # body
+}
+```
+
+--
+
+... la relación entre `for` y `while`:
+
+--
+
+
+```r
+for (i in seq_along(x)) {
+  # body
+}
+
+# Equivalent to
+i &lt;- 1
+while (i &lt;= length(x)) {
+  # body
+  i &lt;- i + 1 
+}
+```
+
+---
+
+# 3.3 Iteración
+
+## *Functional Programming (FP)*
+
+--
+
+
+```r
+col_mean &lt;- function(df) {
+  output &lt;- vector("double", length(df))
+  for (i in seq_along(df)) {
+    output[i] &lt;- mean(df[[i]])
+  }
+  output
+}
+
+col_median &lt;- function(df) {
+  output &lt;- vector("double", length(df))
+  for (i in seq_along(df)) {
+    output[i] &lt;- median(df[[i]])
+  }
+  output
+}
+
+# col_lo_que_quieras... ya estás repitiendo código de nuevo
+```
+
+---
+
+# 3.3 Iteración
+
+## *Functional Programming (FP)*
+
+
+```r
+col_summary &lt;- function(df, fun) {
+  out &lt;- vector("double", length(df))
+  for (i in seq_along(df)) {
+    out[i] &lt;- fun(df[[i]])
+  }
+  out
+}
+col_summary(df, median)
+```
+
+```
+## [1] 0.02197509 0.01554522 0.34002339 0.37497688
+```
+
+```r
+col_summary(df, mean)
+```
+
+```
+## [1]  0.19976382 -0.08195969  0.17620444  0.42912825
+```
+
+---
+
+# 3.3 Iteración
+
+## FP: los `map` de [`purr`](https://purrr.tidyverse.org/)
+
+--
+
+* map() devuelve una lista.
+* map_lgl() devuelve un vector tipo *logical*.
+* map_int() devuelve un vector de enteros.
+* map_dbl() devuelve un vector de *doubles*.
+* map_chr() devuelve un vector de caracteres.
+
+--
+
+
+```r
+map_dbl(df, mean)
+map_dbl(df, median)
+map_dbl(df, sd)
+```
+
+--
+
+... también nos vale:
+
+
+```r
+df %&gt;% map_dbl(mean)
+df %&gt;% map_dbl(median)
+df %&gt;% map_dbl(sd)
+```
+
+---
+
+# 3.3 Iteración
+
+## FP: los `map` de [`purr`](https://purrr.tidyverse.org/)
+
+--
+
+Usan `...` (*dot-dot-dot*):
+
+--
+
+
+```r
+map_dbl(df, mean, trim = 0.5)
+```
+
+```
+##          a          b          c          d 
+## 0.02197509 0.01554522 0.34002339 0.37497688
+```
+
+--
+
+Conservan los nombres:
+
+--
+
+
+```r
+z &lt;- list(x = 1:3, y = 4:5)
+map_int(z, length)
+```
+
+```
+## x y 
+## 3 2
+```
+
+---
+
+# 3.3 Iteración
+
+## Lidiando con los fallos: [`safely()`](https://purrr.tidyverse.org/reference/safely.html)
+
+--
+
+
+```r
+safe_log &lt;- safely(log)
+str(safe_log(10))
+```
+
+```
+## List of 2
+##  $ result: num 2.3
+##  $ error : NULL
+```
+
+```r
+str(safe_log("a"))
+```
+
+```
+## List of 2
+##  $ result: NULL
+##  $ error :List of 2
+##   ..$ message: chr "non-numeric argument to mathematical function"
+##   ..$ call   : language .Primitive("log")(x, base)
+##   ..- attr(*, "class")= chr [1:3] "simpleError" "error" "condition"
+```
+
+
+---
+
+# 3.3 Iteración
+
+## Lidiando con los fallos: [`safely()`](https://purrr.tidyverse.org/reference/safely.html)
+
+--
+
+
+```r
+x &lt;- list(1, 10, "a")
+y &lt;- x %&gt;% map(safely(log))
+str(y)
+```
+
+```
+## List of 3
+##  $ :List of 2
+##   ..$ result: num 0
+##   ..$ error : NULL
+##  $ :List of 2
+##   ..$ result: num 2.3
+##   ..$ error : NULL
+##  $ :List of 2
+##   ..$ result: NULL
+##   ..$ error :List of 2
+##   .. ..$ message: chr "non-numeric argument to mathematical function"
+##   .. ..$ call   : language .Primitive("log")(x, base)
+##   .. ..- attr(*, "class")= chr [1:3] "simpleError" "error" "condition"
+```
+
+
+---
+
+# 3.3 Iteración
+
+## Lidiando con los fallos: [`safely()`](https://purrr.tidyverse.org/reference/safely.html)
+
+--
+
+
+```r
+y &lt;- y %&gt;% transpose()
+str(y)
+```
+
+```
+## List of 2
+##  $ result:List of 3
+##   ..$ : num 0
+##   ..$ : num 2.3
+##   ..$ : NULL
+##  $ error :List of 3
+##   ..$ : NULL
+##   ..$ : NULL
+##   ..$ :List of 2
+##   .. ..$ message: chr "non-numeric argument to mathematical function"
+##   .. ..$ call   : language .Primitive("log")(x, base)
+##   .. ..- attr(*, "class")= chr [1:3] "simpleError" "error" "condition"
+```
+--
+
+... con `transpose()` hacemos dos listas, una para los valores y otra para los errores.
+
+
+---
+
+# 3.3 Iteración
+
+## Lidiando con los fallos: `possibly()` y `quietly()`
+
+--
+
+
+```r
+x &lt;- list(1, 10, "a")
+x %&gt;% map_dbl(possibly(log, NA_real_))
+```
+
+```
+## [1] 0.000000 2.302585       NA
+```
+
+--
+
+... no falla porque le pasamos el valor por defecto a rellenar cuando hay errores.
+
+--
+
+
+```r
+x &lt;- list(1, -1)
+x %&gt;% map(quietly(log)) %&gt;% str()
+```
+
+--
+
+... captura todos los *outputs*, mensajes y *warnings*.
+
+---
+
+# 3.3 Iteración
+
+## Lidiando con los fallos: `tryCatch()`
+
+--
+
+
+```r
+tryCatch(
+    expr = {
+        # Your code...
+        # goes here...
+        # ...
+    },
+    error = function(e){ 
+        # (Optional)
+        # Do this if an error is caught...
+    },
+    warning = function(w){
+        # (Optional)
+        # Do this if an warning is caught...
+    },
+    finally = {
+        # (Optional)
+        # Do this at the end before quitting the tryCatch structure...
+    }
+)
+```
+
+---
+
+# 3.3 Iteración
+
+## `map2()`: itera sobre dos vectores en paralelo
+
+--
+
+
+```r
+mu &lt;- list(5, 10, -3)
+sigma &lt;- list(1, 5, 10)
+
+map2(mu, sigma, rnorm, n = 5) %&gt;% str()
+```
+
+```
+## List of 3
+##  $ : num [1:5] 5.95 3.35 4.93 5.94 3.98
+##  $ : num [1:5] 6.05 12.78 10.46 10.53 3.23
+##  $ : num [1:5] -15.14 -37.78 -18.83 -8.42 7.05
+```
+
+---
+
+# 3.3 Iteración
+
+## `map2()`: itera sobre dos vectores en paralelo
+
+--
+
+&lt;img src="my_images/fp_purr/lists-map2.png" width="60%" style="display: block; margin: auto;" /&gt;
+.center[
+[r4ds](https://r4ds.had.co.nz/iteration.html#mapping-over-multiple-arguments) 
+]
+
+---
+
+# 3.3 Iteración
+
+## `pmap()`: itera sobre p vectores en paralelo
+
+--
+
+
+```r
+n &lt;- list(1, 3, 5)
+args1 &lt;- list(n, mu, sigma)
+args1 %&gt;%
+  pmap(rnorm) %&gt;% 
+  str()
+```
+
+```
+## List of 3
+##  $ : num 4.27
+##  $ : num [1:3] 3.85 8.248 0.635
+##  $ : num [1:5] -9.56 -7.9 -1.16 -1.5 -8.8
+```
+
+---
+
+# 3.3 Iteración
+
+## `pmap()`: itera sobre p vectores en paralelo
+
+--
+
+&lt;img src="my_images/fp_purr/lists-pmap-unnamed.png" width="60%" style="display: block; margin: auto;" /&gt;
+.center[
+[r4ds](https://r4ds.had.co.nz/iteration.html#mapping-over-multiple-arguments) 
+]
+
+
+---
+
+# 3.3 Iteración
+
+## `pmap()`: itera sobre p vectores en paralelo
+
+--
+
+
+```r
+# más fácil de leer si nombramos los parámetros:
+args2 &lt;- list(mean = mu, sd = sigma, n = n)
+args2 %&gt;% 
+  pmap(rnorm) %&gt;% 
+  str()
+```
+
+```
+## List of 3
+##  $ : num 3.25
+##  $ : num [1:3] 5.03 9.34 10.23
+##  $ : num [1:5] 2.2 -1.81 1.78 -12.24 -13.77
+```
+
+---
+
+# 3.3 Iteración
+
+## `pmap()`: itera sobre p vectores en paralelo
+
+--
+
+&lt;img src="my_images/fp_purr/lists-pmap-named.png" width="60%" style="display: block; margin: auto;" /&gt;
+.center[
+[r4ds](https://r4ds.had.co.nz/iteration.html#mapping-over-multiple-arguments) 
+]
+
+
+---
+
+# 3.3 Iteración
+
+## `invoke_map()`: invoca diferentes funciones
+
+--
+
+
+```r
+f &lt;- c("runif", "rnorm", "rpois")
+param &lt;- list(
+  list(min = -1, max = 1), 
+  list(sd = 5), 
+  list(lambda = 10)
+)
+
+invoke_map(f, param, n = 5) %&gt;% str()
+```
+
+```
+## Warning: `invoke_map()` was deprecated in purrr 1.0.0.
+## ℹ Please use map() + exec() instead.
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+## generated.
+```
+
+```
+## List of 3
+##  $ : num [1:5] -0.9901 0.3604 -0.4499 0.0628 0.4279
+##  $ : num [1:5] -0.821 -1.866 -5.335 -1.434 4.109
+##  $ : int [1:5] 7 12 4 14 12
+```
+
+---
+
+# 3.3 Iteración
+
+## `invoke_map()`: invoca diferentes funciones
+
+--
+
+
+&lt;img src="my_images/fp_purr/lists-invoke.png" width="60%" style="display: block; margin: auto;" /&gt;
+.center[
+[r4ds](https://r4ds.had.co.nz/iteration.html#mapping-over-multiple-arguments) 
+]
+
+--
+
+... y hay [más](https://r4ds.had.co.nz/iteration.html#other-patterns-of-for-loops)!!!
+
+
+---
+class: inverse, center, middle
+
+# 4. Comunicar
+
+---
+
+# 4. Comunicar
+
+--
+
+### Rmarkdown
+
+--
+
+.pull-left[.center-left2[
+
+* La "Guía Definitiva": &lt;https://bookdown.org/yihui/rmarkdown/&gt;.
+
+* El [Cheatsheet](https://rstudio.com/resources/cheatsheets/) o la propia [web](https://rmarkdown.rstudio.com/) de RStudio.
+
+]]
+.pull-right[.center-right[
+
+&lt;img src="my_images/rmarkdown_logo.jpg" width="30%" style="display: block; margin: auto;" /&gt;
+
+]]
+
+
+---
+
+# 4. Comunicar
+
+### Rmarkdown
+
+
+.pull-left[.center-left2[
+
+* La "Guía Definitiva": &lt;https://bookdown.org/yihui/rmarkdown/&gt;.
+
+* El [Cheatsheet](https://rstudio.com/resources/cheatsheets/) o la propia [web](https://rmarkdown.rstudio.com/) de RStudio.
+
+* Presentaciones como esta, usando [`xaringan`](https://slides.yihui.org/xaringan/#1).
+
+* [Flexdashboards](https://rmarkdown.rstudio.com/flexdashboard/index.html).
+
+]]
+.pull-right[.center-right[
+
+&lt;img src="my_images/xaringan.png" width="30%" style="display: block; margin: auto;" /&gt;
+
+]]
+
+
+---
+
+# 4. Comunicar
+
+### Rmarkdown
+
+.pull-left[.center-left2[
+
+* La "Guía Definitiva": &lt;https://bookdown.org/yihui/rmarkdown/&gt;.
+
+* El [Cheatsheet](https://rstudio.com/resources/cheatsheets/) o la propia [web](https://rmarkdown.rstudio.com/) de RStudio.
+
+* Presentaciones como esta, usando [`xaringan`](https://slides.yihui.org/xaringan/#1).
+
+* [Flexdashboards](https://rmarkdown.rstudio.com/flexdashboard/index.html).
+
+* [Shiny Apps](https://shiny.rstudio.com/).
+
+]]
+.pull-right[.center-right[
+
+&lt;img src="my_images/shiny_logo.jpg" width="30%" style="display: block; margin: auto;" /&gt;
+
+]]
+
+---
+
+# 4. Comunicar
+
+### ¡El último ejercicio!
+
+* Queremos construir un  [Flexdashboards](https://rmarkdown.rstudio.com/flexdashboard/index.html) para nuestro análisis de los datos `who` de Tuberculosis.
+
+* Vamos a usar estos dos ejemplos como punto de partida: 
+ 1. [Shiny: ggplot2 linked brushingg](https://jjallaire.shinyapps.io/shiny-ggplot2-brushing/)
+ 2. [Shiny biclust example](https://jjallaire.shinyapps.io/shiny-biclust/)
+
+* Podríamos intentar, por ejemplo:
+ * incluir las series temporales para cada sexo y agrupadas por edad,
+ * incluir una tabla de resumen numérico,
+ * como hay mucha información, esta tabla debería ser solo para año y país seleccionado por el usuario.
+
+---
+# ¡Gracias por aguantar hasta el final!
+
+&lt;img src="my_images/no-more-R.jfif" width="60%" style="display: block; margin: auto;" /&gt;
+
+--
+
+.center[`... %&gt;% q()`]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "zenburn",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
