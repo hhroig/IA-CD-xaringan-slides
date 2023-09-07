@@ -465,7 +465,7 @@ mean(x > 0)
  + de arriba a abajo.
 * Paquete [`magritrr`](https://cran.r-project.org/web/packages/magrittr/vignettes/magrittr.html).
 * Es uno de los ingredientes claves de [`tidyverse`](https://magrittr.tidyverse.org/) y se carga con `dplyr` directamente.
-* Excepción: uso limitado con `ggplot` (y aún [`ggvis`](https://ggvis.rstudio.com/) está verde).
+* Excepción: uso limitado con `ggplot`, aunque tenemos [`ggvis`](https://ggvis.rstudio.com/)...
 ]]
 
 .pull-right[ .center-right[
@@ -513,6 +513,9 @@ not_piped <-
   g(f(x, y), z)
 ```
 #### Pasamos al **Notebook Transformaciones de Datos**
+
+<https://hhroig.github.io/IA-CD-practice-main/transforma.html>
+
 ]]
 
 .pull-right[ .center-right[
@@ -1237,6 +1240,7 @@ Tomado de [r4ds](https://r4ds.had.co.nz/index.html).
 * Unir
 
 
+<https://hhroig.github.io/IA-CD-practice-main/tidy.html>
 
 ---
 
@@ -1509,6 +1513,8 @@ knitr::include_graphics("my_images/tidyr_animated/setdiff-rev.gif")
 
 .center2[
 ### Pasamos al **Notebook de *Relational Data* ** 
+
+<https://hhroig.github.io/IA-CD-practice-main/relational.html>
 ]
 
 
