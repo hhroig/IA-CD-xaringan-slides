@@ -54,7 +54,7 @@ class: inverse, center, middle
 knitr::include_graphics("my_images/cover.png")
 ```
 .center[
-r4ds **gratis** en: <https://r4ds.had.co.nz/index.html>.
+r4ds 1era y 2da edición **gratis** en: <https://r4ds.had.co.nz/index.html>.
 ]
 
 
@@ -65,6 +65,8 @@ r4ds **gratis** en: <https://r4ds.had.co.nz/index.html>.
 ### Bibliografía recomendada
 
 Wickham, Hadley, and Garrett Grolemund. 2017. R for Data Science: Import, Tidy, Transform, Visualize, and Model Data. 1st ed. O’Reilly Media. (Versión online libre: [r4ds](https://r4ds.had.co.nz/index.html)).
+
+Wickham, Hadley, Çetinkaya-Rundel, Mine, and Grolemund, Garrett. 2023. R for Data Science: Import, Tidy, Transform, Visualize, and Model Data. 2nd ed. O’Reilly Media. (Versión online libre: [r4ds2e](https://r4ds.hadley.nz/)).
 
 Chang, Winston. 2012. R Graphics Cookbook: Practical Recipes for Visualizing Data. O'Reilly Media. (Versión parcial online libre: <http://www.cookbook-r.com/Graphs/>).
 
