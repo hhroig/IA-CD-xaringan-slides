@@ -2001,8 +2001,7 @@ col_summary(df, mean)
 
 # 3.3 Iteración
 
-## FP: los `map` de [`purr`](https://purrr.tidyverse.org/)
-
+## FP: los `map` de [`purr`](https://purrr.tidyverse.org/) 
 --
 
 * map() devuelve una lista.
@@ -2060,106 +2059,14 @@ map_int(z, length)
 
 # 3.3 Iteración
 
-## Lidiando con los fallos: [`safely()`](https://purrr.tidyverse.org/reference/safely.html)
-
+## FP: los `map` de [`purr`](https://purrr.tidyverse.org/) 
 --
 
-```{r}
-safe_log <- safely(log)
-str(safe_log(10))
-str(safe_log("a"))
-```
+.center2[
+### Más en el [Capítulo 9 de Advanced R](https://adv-r.hadley.nz/functionals.html)
+]
 
 
----
-
-# 3.3 Iteración
-
-## Lidiando con los fallos: [`safely()`](https://purrr.tidyverse.org/reference/safely.html)
-
---
-
-```{r}
-x <- list(1, 10, "a")
-y <- x %>% map(safely(log))
-str(y)
-```
-
-
----
-
-# 3.3 Iteración
-
-## Lidiando con los fallos: [`safely()`](https://purrr.tidyverse.org/reference/safely.html)
-
---
-
-```{r}
-y <- y %>% transpose()
-str(y)
-```
---
-
-... con `transpose()` hacemos dos listas, una para los valores y otra para los errores.
-
-
----
-
-# 3.3 Iteración
-
-## Lidiando con los fallos: `possibly()` y `quietly()`
-
---
-
-```{r}
-x <- list(1, 10, "a")
-x %>% map_dbl(possibly(log, NA_real_))
-```
-
---
-
-... no falla porque le pasamos el valor por defecto a rellenar cuando hay errores.
-
---
-
-```{r, eval = FALSE}
-x <- list(1, -1)
-x %>% map(quietly(log)) %>% str()
-```
-
---
-
-... captura todos los *outputs*, mensajes y *warnings*.
-
----
-
-# 3.3 Iteración
-
-## Lidiando con los fallos: `tryCatch()`
-
---
-
-```{r, eval = FALSE}
-tryCatch(
-    expr = {
-        # Your code...
-        # goes here...
-        # ...
-    },
-    error = function(e){ 
-        # (Optional)
-        # Do this if an error is caught...
-    },
-    warning = function(w){
-        # (Optional)
-        # Do this if an warning is caught...
-    },
-    finally = {
-        # (Optional)
-        # Do this at the end before quitting the tryCatch structure...
-    }
-)
-```
 
 ---
 
@@ -2295,6 +2202,115 @@ knitr::include_graphics("my_images/fp_purr/lists-invoke.png")
 ... y hay [más](https://r4ds.had.co.nz/iteration.html#other-patterns-of-for-loops)!!!
 
 
+
+
+---
+
+# 3.3 Iteración
+
+## Lidiando con los fallos: [`safely()`](https://purrr.tidyverse.org/reference/safely.html)
+
+--
+
+```{r}
+safe_log <- safely(log)
+str(safe_log(10))
+str(safe_log("a"))
+```
+
+
+---
+
+# 3.3 Iteración
+
+## Lidiando con los fallos: [`safely()`](https://purrr.tidyverse.org/reference/safely.html)
+
+--
+
+```{r}
+x <- list(1, 10, "a")
+y <- x %>% map(safely(log))
+str(y)
+```
+
+
+---
+
+# 3.3 Iteración
+
+## Lidiando con los fallos: [`safely()`](https://purrr.tidyverse.org/reference/safely.html)
+
+--
+
+```{r}
+y <- y %>% transpose()
+str(y)
+```
+--
+
+... con `transpose()` hacemos dos listas, una para los valores y otra para los errores.
+
+
+---
+
+# 3.3 Iteración
+
+## Lidiando con los fallos: `possibly()` y `quietly()`
+
+--
+
+```{r}
+x <- list(1, 10, "a")
+x %>% map_dbl(possibly(log, NA_real_))
+```
+
+--
+
+... no falla porque le pasamos el valor por defecto a rellenar cuando hay errores.
+
+--
+
+```{r, eval = FALSE}
+x <- list(1, -1)
+x %>% map(quietly(log)) %>% str()
+```
+
+--
+
+... captura todos los *outputs*, mensajes y *warnings*.
+
+---
+
+# 3.3 Iteración
+
+## Lidiando con los fallos: `tryCatch()`
+
+--
+
+```{r, eval = FALSE}
+tryCatch(
+    expr = {
+        # Your code...
+        # goes here...
+        # ...
+    },
+    error = function(e){ 
+        # (Optional)
+        # Do this if an error is caught...
+    },
+    warning = function(w){
+        # (Optional)
+        # Do this if an warning is caught...
+    },
+    finally = {
+        # (Optional)
+        # Do this at the end before quitting the tryCatch structure...
+    }
+)
+```
+
+
+
 ---
 class: inverse, center, middle
 
@@ -2384,7 +2400,7 @@ knitr::include_graphics("my_images/shiny_logo.jpg")
 
 # 4. Comunicar
 
-### ¡El último ejercicio!
+### El ¿último? ejercicio
 
 * Queremos construir un  [Flexdashboards](https://rmarkdown.rstudio.com/flexdashboard/index.html) para nuestro análisis de los datos `who` de Tuberculosis.
 
@@ -2396,6 +2412,11 @@ knitr::include_graphics("my_images/shiny_logo.jpg")
  * incluir las series temporales para cada sexo y agrupadas por edad,
  * incluir una tabla de resumen numérico,
  * como hay mucha información, esta tabla debería ser solo para año y país seleccionado por el usuario.
+
+
+--
+
+* El último paso sería publicar tu dashboard para que todos puedan ver tus habilidades: [Guía en Youtube](https://www.youtube.com/watch?v=q6BFGdLCOXs).
 
 ---
 # ¡Gracias por aguantar hasta el final!

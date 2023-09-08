@@ -999,7 +999,7 @@ df$x
 ```
 
 ```
-## [1] 0.18937014 0.50646336 0.25219542 0.08012437 0.07654613
+## [1] 0.4011909 0.7862448 0.4538766 0.4784643 0.3326636
 ```
 
 ```r
@@ -1007,7 +1007,7 @@ df[["x"]]
 ```
 
 ```
-## [1] 0.18937014 0.50646336 0.25219542 0.08012437 0.07654613
+## [1] 0.4011909 0.7862448 0.4538766 0.4784643 0.3326636
 ```
 
 ```r
@@ -1016,7 +1016,7 @@ df[[1]]
 ```
 
 ```
-## [1] 0.18937014 0.50646336 0.25219542 0.08012437 0.07654613
+## [1] 0.4011909 0.7862448 0.4538766 0.4784643 0.3326636
 ```
 
 ---
@@ -1033,7 +1033,7 @@ df %&gt;% .$x
 ```
 
 ```
-## [1] 0.18937014 0.50646336 0.25219542 0.08012437 0.07654613
+## [1] 0.4011909 0.7862448 0.4538766 0.4784643 0.3326636
 ```
 
 ```r
@@ -1041,7 +1041,7 @@ df %&gt;% .[["x"]]
 ```
 
 ```
-## [1] 0.18937014 0.50646336 0.25219542 0.08012437 0.07654613
+## [1] 0.4011909 0.7862448 0.4538766 0.4784643 0.3326636
 ```
 
 --
@@ -2456,7 +2456,7 @@ output
 ```
 
 ```
-## [1] -0.27018545 -0.07897736  0.58095899 -0.43981189
+## [1]  0.7761359 -0.1316346  0.6316678 -1.1171424
 ```
 
 --
@@ -2492,9 +2492,9 @@ str(out)
 
 ```
 ## List of 3
-##  $ : num [1:7] -1.588 1.641 -0.332 1.206 0.893 ...
-##  $ : num [1:34] 0.334 -0.709 -0.191 1.422 -0.375 ...
-##  $ : num [1:42] 2.553 -0.289 3.39 1.64 3.325 ...
+##  $ : num [1:68] -0.2025 1.6803 0.0538 -1.0035 0.062 ...
+##  $ : num [1:79] 0.528 0.414 1.995 2.165 0.909 ...
+##  $ : num [1:46] 3.009 0.713 1.258 0.608 4.016 ...
 ```
 
 ```r
@@ -2502,7 +2502,7 @@ str(unlist(out))
 ```
 
 ```
-##  num [1:83] -1.588 1.641 -0.332 1.206 0.893 ...
+##  num [1:193] -0.2025 1.6803 0.0538 -1.0035 0.062 ...
 ```
 
 ---
@@ -2588,7 +2588,7 @@ col_summary(df, median)
 ```
 
 ```
-## [1] -0.27018545 -0.07897736  0.58095899 -0.43981189
+## [1]  0.7761359 -0.1316346  0.6316678 -1.1171424
 ```
 
 ```r
@@ -2596,15 +2596,14 @@ col_summary(df, mean)
 ```
 
 ```
-## [1]  0.06440208 -0.06269456  0.38835668 -0.20075312
+## [1]  0.5784212  0.0775319  0.2424291 -1.0976366
 ```
 
 ---
 
 # 3.3 Iteración
 
-## FP: los `map` de [`purr`](https://purrr.tidyverse.org/)
-
+## FP: los `map` de [`purr`](https://purrr.tidyverse.org/) 
 --
 
 * map() devuelve una lista.
@@ -2651,8 +2650,8 @@ map_dbl(df, mean, trim = 0.5)
 ```
 
 ```
-##           a           b           c           d 
-## -0.27018545 -0.07897736  0.58095899 -0.43981189
+##          a          b          c          d 
+##  0.7761359 -0.1316346  0.6316678 -1.1171424
 ```
 
 --
@@ -2671,6 +2670,187 @@ map_int(z, length)
 ## x y 
 ## 3 2
 ```
+
+---
+
+# 3.3 Iteración
+
+## FP: los `map` de [`purr`](https://purrr.tidyverse.org/) 
+--
+
+.center2[
+### Más en el [Capítulo 9 de Advanced R](https://adv-r.hadley.nz/functionals.html)
+]
+
+
+
+---
+
+# 3.3 Iteración
+
+## `map2()`: itera sobre dos vectores en paralelo
+
+--
+
+
+```r
+mu &lt;- list(5, 10, -3)
+sigma &lt;- list(1, 5, 10)
+
+map2(mu, sigma, rnorm, n = 5) %&gt;% str()
+```
+
+```
+## List of 3
+##  $ : num [1:5] 2.83 5.09 4.98 4.08 5.22
+##  $ : num [1:5] 15.35 11.19 8.34 12.75 17.59
+##  $ : num [1:5] -7.962 -12.018 -7.711 -0.501 -13.664
+```
+
+---
+
+# 3.3 Iteración
+
+## `map2()`: itera sobre dos vectores en paralelo
+
+--
+
+&lt;img src="my_images/fp_purr/lists-map2.png" width="60%" style="display: block; margin: auto;" /&gt;
+.center[
+[r4ds](https://r4ds.had.co.nz/iteration.html#mapping-over-multiple-arguments) 
+]
+
+---
+
+# 3.3 Iteración
+
+## `pmap()`: itera sobre p vectores en paralelo
+
+--
+
+
+```r
+n &lt;- list(1, 3, 5)
+args1 &lt;- list(n, mu, sigma)
+args1 %&gt;%
+  pmap(rnorm) %&gt;% 
+  str()
+```
+
+```
+## List of 3
+##  $ : num 7.32
+##  $ : num [1:3] 5.2 11 13.5
+##  $ : num [1:5] -12.2343 -10.2702 5.5359 0.0576 -11.7612
+```
+
+---
+
+# 3.3 Iteración
+
+## `pmap()`: itera sobre p vectores en paralelo
+
+--
+
+&lt;img src="my_images/fp_purr/lists-pmap-unnamed.png" width="60%" style="display: block; margin: auto;" /&gt;
+.center[
+[r4ds](https://r4ds.had.co.nz/iteration.html#mapping-over-multiple-arguments) 
+]
+
+
+---
+
+# 3.3 Iteración
+
+## `pmap()`: itera sobre p vectores en paralelo
+
+--
+
+
+```r
+# más fácil de leer si nombramos los parámetros:
+args2 &lt;- list(mean = mu, sd = sigma, n = n)
+args2 %&gt;% 
+  pmap(rnorm) %&gt;% 
+  str()
+```
+
+```
+## List of 3
+##  $ : num 4.09
+##  $ : num [1:3] 7.5 5.61 4.19
+##  $ : num [1:5] -6.28 -1.01 13.85 12.94 -10.07
+```
+
+---
+
+# 3.3 Iteración
+
+## `pmap()`: itera sobre p vectores en paralelo
+
+--
+
+&lt;img src="my_images/fp_purr/lists-pmap-named.png" width="60%" style="display: block; margin: auto;" /&gt;
+.center[
+[r4ds](https://r4ds.had.co.nz/iteration.html#mapping-over-multiple-arguments) 
+]
+
+
+---
+
+# 3.3 Iteración
+
+## `invoke_map()`: invoca diferentes funciones
+
+--
+
+
+```r
+f &lt;- c("runif", "rnorm", "rpois")
+param &lt;- list(
+  list(min = -1, max = 1), 
+  list(sd = 5), 
+  list(lambda = 10)
+)
+
+invoke_map(f, param, n = 5) %&gt;% str()
+```
+
+```
+## Warning: `invoke_map()` was deprecated in purrr 1.0.0.
+## ℹ Please use map() + exec() instead.
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+## generated.
+```
+
+```
+## List of 3
+##  $ : num [1:5] 0.5 0.556 0.959 0.951 -0.383
+##  $ : num [1:5] 0.717 3.32 1.906 3.142 6.015
+##  $ : int [1:5] 11 13 13 12 5
+```
+
+---
+
+# 3.3 Iteración
+
+## `invoke_map()`: invoca diferentes funciones
+
+--
+
+
+&lt;img src="my_images/fp_purr/lists-invoke.png" width="60%" style="display: block; margin: auto;" /&gt;
+.center[
+[r4ds](https://r4ds.had.co.nz/iteration.html#mapping-over-multiple-arguments) 
+]
+
+--
+
+... y hay [más](https://r4ds.had.co.nz/iteration.html#other-patterns-of-for-loops)!!!
+
+
+
 
 ---
 
@@ -2836,170 +3016,6 @@ tryCatch(
 )
 ```
 
----
-
-# 3.3 Iteración
-
-## `map2()`: itera sobre dos vectores en paralelo
-
---
-
-
-```r
-mu &lt;- list(5, 10, -3)
-sigma &lt;- list(1, 5, 10)
-
-map2(mu, sigma, rnorm, n = 5) %&gt;% str()
-```
-
-```
-## List of 3
-##  $ : num [1:5] 4.34 3.67 4.69 4.55 4.55
-##  $ : num [1:5] 8.31 11.42 16.77 7.42 12.28
-##  $ : num [1:5] 16.838 -10.738 3.811 -0.294 8.527
-```
-
----
-
-# 3.3 Iteración
-
-## `map2()`: itera sobre dos vectores en paralelo
-
---
-
-&lt;img src="my_images/fp_purr/lists-map2.png" width="60%" style="display: block; margin: auto;" /&gt;
-.center[
-[r4ds](https://r4ds.had.co.nz/iteration.html#mapping-over-multiple-arguments) 
-]
-
----
-
-# 3.3 Iteración
-
-## `pmap()`: itera sobre p vectores en paralelo
-
---
-
-
-```r
-n &lt;- list(1, 3, 5)
-args1 &lt;- list(n, mu, sigma)
-args1 %&gt;%
-  pmap(rnorm) %&gt;% 
-  str()
-```
-
-```
-## List of 3
-##  $ : num 5.29
-##  $ : num [1:3] 8.08 10.45 12.18
-##  $ : num [1:5] -10.051 -1.699 -9.227 -0.448 -1.47
-```
-
----
-
-# 3.3 Iteración
-
-## `pmap()`: itera sobre p vectores en paralelo
-
---
-
-&lt;img src="my_images/fp_purr/lists-pmap-unnamed.png" width="60%" style="display: block; margin: auto;" /&gt;
-.center[
-[r4ds](https://r4ds.had.co.nz/iteration.html#mapping-over-multiple-arguments) 
-]
-
-
----
-
-# 3.3 Iteración
-
-## `pmap()`: itera sobre p vectores en paralelo
-
---
-
-
-```r
-# más fácil de leer si nombramos los parámetros:
-args2 &lt;- list(mean = mu, sd = sigma, n = n)
-args2 %&gt;% 
-  pmap(rnorm) %&gt;% 
-  str()
-```
-
-```
-## List of 3
-##  $ : num 4.09
-##  $ : num [1:3] 14.58 5.43 16.28
-##  $ : num [1:5] -2.82 6.95 -11.75 -12.05 7.24
-```
-
----
-
-# 3.3 Iteración
-
-## `pmap()`: itera sobre p vectores en paralelo
-
---
-
-&lt;img src="my_images/fp_purr/lists-pmap-named.png" width="60%" style="display: block; margin: auto;" /&gt;
-.center[
-[r4ds](https://r4ds.had.co.nz/iteration.html#mapping-over-multiple-arguments) 
-]
-
-
----
-
-# 3.3 Iteración
-
-## `invoke_map()`: invoca diferentes funciones
-
---
-
-
-```r
-f &lt;- c("runif", "rnorm", "rpois")
-param &lt;- list(
-  list(min = -1, max = 1), 
-  list(sd = 5), 
-  list(lambda = 10)
-)
-
-invoke_map(f, param, n = 5) %&gt;% str()
-```
-
-```
-## Warning: `invoke_map()` was deprecated in purrr 1.0.0.
-## ℹ Please use map() + exec() instead.
-## This warning is displayed once every 8 hours.
-## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
-## generated.
-```
-
-```
-## List of 3
-##  $ : num [1:5] -0.62859 -0.83713 -0.75708 0.00937 0.98856
-##  $ : num [1:5] 3.19 -8.26 -2.28 3.63 1.43
-##  $ : int [1:5] 7 9 11 12 6
-```
-
----
-
-# 3.3 Iteración
-
-## `invoke_map()`: invoca diferentes funciones
-
---
-
-
-&lt;img src="my_images/fp_purr/lists-invoke.png" width="60%" style="display: block; margin: auto;" /&gt;
-.center[
-[r4ds](https://r4ds.had.co.nz/iteration.html#mapping-over-multiple-arguments) 
-]
-
---
-
-... y hay [más](https://r4ds.had.co.nz/iteration.html#other-patterns-of-for-loops)!!!
 
 
 ---
@@ -3085,7 +3101,7 @@ class: inverse, center, middle
 
 # 4. Comunicar
 
-### ¡El último ejercicio!
+### El ¿último? ejercicio
 
 * Queremos construir un  [Flexdashboards](https://rmarkdown.rstudio.com/flexdashboard/index.html) para nuestro análisis de los datos `who` de Tuberculosis.
 
@@ -3097,6 +3113,11 @@ class: inverse, center, middle
  * incluir las series temporales para cada sexo y agrupadas por edad,
  * incluir una tabla de resumen numérico,
  * como hay mucha información, esta tabla debería ser solo para año y país seleccionado por el usuario.
+
+
+--
+
+* El último paso sería publicar tu dashboard para que todos puedan ver tus habilidades: [Guía en Youtube](https://www.youtube.com/watch?v=q6BFGdLCOXs).
 
 ---
 # ¡Gracias por aguantar hasta el final!
